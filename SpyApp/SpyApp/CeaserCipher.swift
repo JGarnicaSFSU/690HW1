@@ -42,6 +42,8 @@ struct CeaserCipher: Cipher {
 /*
     Creates a hidden message by multiplying its a secret by an internal integer and then adding it
     to the unicode of the character. The max for safety is 4
+ Input: Only lower or uppper alphabetical strings , secret is any positive int 0-4
+ Output: Any Unicode character
  
  */
 struct MultiplicationCipher: Cipher{
@@ -135,7 +137,7 @@ struct AlphabeticalCipher: Cipher {
             }
             if (shiftBy > 0)
             {
-                //  positive case
+                //  this is our positive case
                 let safeShift = shiftBy % 26
                 position = position + Int(safeShift)
                 position = position%26 //this is so it can loop arround
@@ -176,7 +178,7 @@ struct AlphanumericCipher: Cipher {
         let inverseShift = shiftBy * -1
         let stringShift = String(inverseShift)
         var decoded = ""
-        decoded = encode(plaintext, secret: stringShift)!
+        decoded = encode(plaintext, secret: stringShift)! // We can just reverse the secret to decode
         
         
         return decoded
